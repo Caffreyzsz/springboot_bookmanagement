@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图书收藏系统</title>
+
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<script src="js/lib/jquery-3.2.1.min.js"></script>
+		<script>
+				
+			function change(title){
+				$('iframe').attr('src',title+".html");
+			}
+		</script>
+	</head>
+	<body>
+
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-header layui-bg-orange">
+				<div class="layui-logo layui-bg-orang"><img src="imgs/收藏.png" class="layui-nav-img" width="30px"><font color="#00AACE">图书收藏系统</div>
+				<!-- 头部区域（可配合layui 已有的水平导航） -->
+				<ul class="layui-nav  layui-layout-left">
+					<li class="layui-nav-item"><a href="main.html" ><img src="imgs/Google_Caffrey.jpg" class="layui-nav-img" width="30px"><font color="#FFFF00">首页</a></li>
+					<li class="layui-nav-item"><a href="https://book.douban.com/ " target="_blank"><img src="imgs/book.png" class="layui-nav-img" width="30px"><font color="#00AACE">豆瓣读书</a></li>
+					<li class="layui-nav-item"><a href="https://www.jiumodiary.com/ " target="_blank"><img src="imgs/搜书.jpg" class="layui-nav-img" width="30px"><font color="#00AACE">在线搜书</a></li>
+				</ul>
+				<ul class="layui-nav  layui-layout-right">
+					<li class="layui-nav-item ">
+						
+						<a href="javascript:;">
+							<img src="imgs/caffrey.jpg" class="layui-nav-img" width="30px">
+							<font color="#00AACE">
+							caffrey
+						</a>
+						<dl class="layui-nav-child">
+							<dd><a href="">主页</a></dd>
+							<dd><a href="login.html">登出</a></dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item " ></a></li>
+				</ul>
+			</div>
+
+			<div class="layui-side layui-bg-blue layui-bg-black ">
+				<div class="layui-side-scroll layui-bg-green ">
+					<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+					<ul class="layui-nav layui-nav-tree layui-bg-blue" lay-filter="test">
+						
+						<li class="layui-nav-item layui-nav-itemed" >
+							  
+							<a href="javascript:;"><i class="layui-icon layui-icon-component"></i> 图书管理</a>
+							<dl class="layui-nav-child">
+								<dd><a href="javascript:;" onclick="change('search')"><i class="layui-icon layui-icon-search"></i>&nbsp;&nbsp;查询图书</a></dd>
+								<dd><a href="javascript:;" onclick="change('add')"><i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增图书</a></dd>
+							</dl>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+
+			<div class="layui-body">
+				<!-- 内容主体区域 -->
+				<div style="padding: 0;margin: 0;">
+					<iframe src="welcome.html" frameborder="0" id="demoAdmin" style="width: 1336px; height: 691px; border-radius: 2px;"></iframe>
+
+				</div>
+			</div>
+
+			
+		</div>
+		<script src="layui/layui.js" charset="utf-8"></script>
+		<script>
+			//JavaScript 代码区域
+			layui.use('element', function() {
+				var element = layui.element;
+
+			});
+		</script>
+
+	</body>
+</html>

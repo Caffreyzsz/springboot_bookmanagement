@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body{
+			
+			background-image:url(imgs/painting.jpg); 
+			background-size:100% 100% ; 
+			background-attachment: fixed
+		}
+			
+		</style>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+	</head>
+	<body>
+		<div style="padding-top: 260px; text-align: center;">
+			<form class="layui-form">
+				<p><strong>
+						<font size="4" color="#E181FF">添加图书</font>
+				</p>
+				<div class="layui-inline ">
+					<label class="layui-form-label "><img src="imgs/编号.png" class="layui-nav-img" width="30px"><strong>
+							<font color="#FFA900">书号</font></label>
+					<div class="layui-input-inline ">
+						<input name="id" style="BACKGROUND-COLOR: transparent;" autocomplete="off" class="layui-input" required
+						 lay-verify="required">
+					</div>
+					<br />
+					<div class="layui-inline">
+						<label class="layui-form-label "><img src="imgs/书名.png" class="layui-nav-img" width="30px">
+							<font color="#FFA900"><strong>书名</font>
+						</label>
+						<div class="layui-input-inline">
+							<input name="name" style="BACKGROUND-COLOR: transparent;" autocomplete="off" class="layui-input" required
+							 lay-verify="required">
+						</div>
+						<br />
+						<div class="layui-inline">
+							<label class="layui-form-label "><img src="imgs/作者.png" class="layui-nav-img" width="30px">
+								<font color="FFA900"><strong>作者</font>
+							</label>
+							<div class="layui-input-inline">
+								<input name="author" style="BACKGROUND-COLOR: transparent;" autocomplete="off" class="layui-input" required
+								 lay-verify="required">
+							</div>
+							<br />
+							<div class="layui-inline">
+								<label class="layui-form-label "><img src="imgs/出版社.png" class="layui-nav-img" width="30px">
+									<font color="FFA900"><strong>出版社</font>
+								</label>
+								<div class="layui-input-inline">
+									<input name="publish" style="BACKGROUND-COLOR: transparent;" autocomplete="off" class="layui-input" required
+									 lay-verify="required">
+								</div>
+								<br />
+								<div class="layui-inline">
+									<label class="layui-form-label "><img src="imgs/页数.png" class="layui-nav-img" width="30px">
+										<font color="#FFA900"><strong>页数</font>
+									</label>
+									<div class="layui-input-inline">
+										<input name="pages" style="BACKGROUND-COLOR: transparent;" autocomplete="off" class="layui-input" required
+										 lay-verify="required">
+									</div>
+									<br />
+									<div class="layui-inline">
+										<label class="layui-form-label "><img src="imgs/定价.png" class="layui-nav-img" width="30px">
+											<font color="#FFA900"><strong>定价</font>
+										</label>
+										<div class="layui-input-inline">
+											<input name="price" style="BACKGROUND-COLOR: transparent;" autocomplete="off" class="layui-input" required
+											 lay-verify="required">
+										</div>
+										<div class="layui-form-item ">
+											<div class="layui-input-block ">
+												<button class="layui-btn" lay-submit lay-filter="demo1">提交</button>
+												<button type="reset" class="layui-btn  layui-bg-blue">重置</button>
+											</div>
+										</div>
+										<script src="layui/layui.js" charset="utf-8"></script>
+										<script type="text/javascript">
+											layui.use('form', function() {
+												var form = layui.form;
+												// var layer = layui.layer;
+												//监听提交
+												form.on('submit(demo1)', function(data) {
+													var $ = layui.jquery;
+													$.ajax({
+														url: 'http://localhost:8080/addbook',
+														type: "post",
+														data: data.field,
+														success: function(data) {
+															if (data) {
+																top.layer.msg("提交成功！")
+																location.reload(); //刷新当前页
+															} else {
+																layer.alert("提交失败！")
+															}
+
+														}
+													})
+													return false;
+												});
+											});
+										</script>
+
+	</body>
+</html>

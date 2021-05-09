@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+				<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<script src="js/lib/jquery-3.2.1.min.js"></script>
+
+	</head>
+	<body>
+<form class="layui-form">
+
+				<div class="layui-inline ">
+					<label class="layui-form-label "><img src="imgs/账号.png" class="layui-nav-img" width="30px"><strong>
+							<font color="#a3ffa3">账号</font></label>
+					<div class="layui-input-inline ">
+						<input name="id" style="BACKGROUND-COLOR: transparent;" autocomplete="off" class="layui-input" required
+						 lay-verify="required">
+					</div>
+					<br />
+					<div class="layui-inline">
+						<label class="layui-form-label "><img src="imgs/密码.png" class="layui-nav-img" width="30px">
+							<font color="#a3ffa3"><strong>密码</font>
+						</label>
+						<div class="layui-input-inline">
+							<input name="password" type="password" style="BACKGROUND-COLOR: transparent;" autocomplete="off" class="layui-input"
+							 required lay-verify="required">
+						</div>
+
+					<div class="layui-form-item ">
+						<div class="layui-input-block ">
+							<button class="layui-btn" id="btn" lay-submit lay-filter="demo1">提交</button>
+							<button type="reset" class="layui-btn  layui-bg-blue">重置</button>
+
+						</div>
+					</div>
+					
+					<script src="layui/layui.js" charset="utf-8"></script>
+					<script>
+						$(function() {
+							layui.use('form', function() {
+								var form = layui.form;
+								// var layer = layui.layer;
+								//监听提交
+								form.on('submit(demo1)', function(data) {
+									var $ = layui.jquery;
+										$.ajax({
+											url: 'http://localhost:8080/addadmin',
+											type: "post",
+											data: data.field,
+											success: function(data) {
+												if (data) {
+													top.layer.msg("注册成功！", {
+														time: '3000'
+													})
+													var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+													parent.layer.close(index); //再执行关闭 
+												} else {
+													layer.msg("注册失败！<br> 账号名已存在！")
+												}
+						
+											}
+										})
+
+									return false;
+								});
+							});
+						
+						})
+					</script>
+	</body>
+</html>

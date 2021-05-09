@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<script src="js/lib/jquery-3.2.1.min.js"></script>
+	</head>
+	<body>
+		<table class="layui-hide" id="test" lay-filter="test"></table>
+		<script type="text/html" id="toolbarDemo">
+		<div class="demoTable">
+			<div class="layui-inline">
+			<input class="layui-input" name="searContent" id="demoReload" placeholder="编号/书名/作者" autocomplete="off">
+			</div>
+			<button class="layui-btn layui-btn-normal layui-btn-radius" id="searchBtn"><i class="layui-icon">&#xe615;</i> 搜索</button>
+		</div>
+		</script>
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-xs" lay-event="edit">查看</a>
+		    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+		<script src="layui/layui.js" charset="utf-8"></script>
+		<script>
+			layui.use('table', function() {
+				var table = layui.table;
+				var $ = layui.jquery;
+				table.render({
+					elem: '#test',
+					url: 'http://localhost:8080/search',
+					toolbar: '#toolbarDemo',
+					title: '用户数据表',
+					totalRow: true,
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+
+						}, {
+							field: 'id',
+							title: '书籍编号',
+							width: 150,
+							fixed: 'left',
+							unresize: true,
+							sort: true,
+							totalRowText: '合计'
+						}, {
+							field: 'name',
+							title: '书名',
+							width: 150,
+						}, {
+							field: 'author',
+							title: '作者',
+							sort: true,
+							width: 150,
+
+						}, {
+							field: 'publish',
+							title: '出版社',
+							width: 100,
+							sort: true,
+						}, {
+							field: 'pages',
+							title: '页数',
+							width: 100,
+							sort: true,
+							totalRow: true
+						}, {
+							field: 'price',
+							title: '定价',
+							width: 100,
+							sort: true,
+							totalRow: true
+						}, {
+							fixed: 'right',
+							title: '操作',
+							toolbar: '#barDemo',
+							width: 150
+						}]
+					],
+					page: true
+				});
+
+
+				//监听工具条
+				table.on('tool(test)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'del') {
+						layer.confirm('真的要删除此行数据吗？', function(index) {
+							var $ = layui.jquery;
+							$.ajax({
+								url: 'http://localhost:8080/del',
+								type: "post",
+								data: {'id':data.id},
+								success: function(data) {
+									if (data) {
+										layer.msg("删除成功！")
+										location.reload(); //刷新当前页
+									} else {
+										layer.alert("删除失败！")
+									}
+								}
+							})
+							return false;
+							obj.del();
+							layer.close(index);
+						});
+					} else if (obj.event === 'edit') {
+						layer.alert('此行详细信息：<br>' + JSON.stringify(data))
+					}
+				});
+				
+				$(document).on('click','#searchBtn',function(data){
+					// 获取搜索文本框对象
+					var sreach = $("#demoReload");
+					// 调用数据表格的重载方法  table.reload(ID, options)
+					table.reload('test',{
+						url: 'http://localhost:8080/likequery',
+						where:{ // 设置需要传递的参数
+							searContent:sreach.val()
+						},
+						page:{
+							// 表示让条件查询从第一页开始；如果未设置则从当前页开始查询，此页前面的所有数据不纳入条件筛选
+							curr:1 // 从第一页开始
+						}
+					});
+				});
+				
+				
+				
+			});
+		</script>
+
+	</body>
+</html>
