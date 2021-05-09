@@ -20,7 +20,7 @@
 
 查询
 
-![]https://github.com/Caffreyzsz/springboot_bookmanagement/blob/master/%E6%9F%A5%E8%AF%A2.png)
+![](https://github.com/Caffreyzsz/springboot_bookmanagement/blob/master/%E6%9F%A5%E8%AF%A2.png)
 
 添加
 
